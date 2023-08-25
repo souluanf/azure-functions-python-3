@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import azure.functions as func
+from starlette.responses import RedirectResponse
 
-from routers import products
+
+from routers import users
 from utilities.exceptions import ApiException
 
 
@@ -20,8 +22,12 @@ app = FastAPI(
         "email": "luan.santos-tar@piracanjuba.com.br"
     }
 )
-app.include_router(products.router)
+app.include_router(users.router)
 # Add additional api routers here
+
+@app.get("/", tags=["Redirect"], include_in_schema=False)
+async def redirect_to_docs():
+    return RedirectResponse(url="/docs")
 
 
 @app.exception_handler(ApiException)

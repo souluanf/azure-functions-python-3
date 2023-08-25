@@ -13,3 +13,4 @@ sniffio
 starlette
 toml
 typing_extensions
+ldap3
